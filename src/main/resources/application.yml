@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    include:
+      - secret
+  datasource:
+    url: ${db.datasource.url}
+    username: ${db.datasource.username}
+    password: ${db.datasource.password}
