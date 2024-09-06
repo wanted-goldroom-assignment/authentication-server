@@ -1,0 +1,17 @@
+version: '3.7'
+services:
+  mariadb: # 로컬 환경에서 동작시킬 DB
+    image: mariadb:11.2.2
+    container_name: authentication
+    ports:
+      - 8888:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: authentication
+      MYSQL_USER: user
+      MYSQL_PASSWORD: admin
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+
+# docker-compose -f docker-compose.yml up -d
