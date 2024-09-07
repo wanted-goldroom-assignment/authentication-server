@@ -1,4 +1,4 @@
-package wanted.goldroom.authentication.common.util;
+package wanted.goldroom.authentication.infrastructure.common.util;
 
 import org.apache.commons.lang3.RandomStringUtils;
 

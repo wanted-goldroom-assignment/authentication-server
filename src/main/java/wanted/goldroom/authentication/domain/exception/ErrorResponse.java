@@ -1,14 +1,7 @@
 package wanted.goldroom.authentication.domain.exception;
 
-import lombok.Getter;
+public record ErrorResponse(
+    int statusCode,
+    String message) {
 
-@Getter
-public class ErrorResponse {
-    private final int statusCode;
-    private final String message;
-
-    public ErrorResponse(int statusCode, String message) {
-        this.statusCode = statusCode;
-        this.message = message;
-    }
 }

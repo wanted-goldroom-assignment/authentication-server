@@ -1,0 +1,9 @@
+### 회원가입_성공
+POST http://localhost:8888/api/users/signup
+Content-Type: application/json
+
+{
+  "loginId": "piepie",
+  "password": "qwer1234!"
+}
+
