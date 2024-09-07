@@ -6,3 +6,6 @@ spring:
     url: ${db.datasource.url}
     username: ${db.datasource.username}
     password: ${db.datasource.password}
+
+server:
+  port: 8888
