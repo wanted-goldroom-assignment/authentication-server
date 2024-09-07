@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS users
     id         bigint auto_increment primary key comment 'ID',
     user_token varchar(255) not null comment 'user_token',
     login_id   varchar(10)  not null comment '로그인 아이디',
-    password   varchar(15)  not null comment '비밀번호'
+    password   varchar(256) not null comment '비밀번호'
 ) comment 'users' charset = utf8;
 
 -- token
