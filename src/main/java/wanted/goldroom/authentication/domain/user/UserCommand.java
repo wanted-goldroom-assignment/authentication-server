@@ -11,7 +11,7 @@ public class UserCommand {
     private final String loginId;
     private final String password;
 
-    public User toEntity() {
+    public User toEntity(String password) {
         return User.builder()
             .loginId(loginId)
             .password(password)
