@@ -4,7 +4,7 @@ services:
     image: mariadb:11.2.2
     container_name: authentication
     ports:
-      - 8888:3306
+      - 3306:3306
     environment:
       MYSQL_ROOT_PASSWORD: admin
       MYSQL_DATABASE: authentication
