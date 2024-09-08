@@ -8,6 +8,7 @@ import wanted.goldroom.authentication.infrastructure.common.util.PasswordEncoder
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class UserServiceImpl implements UserService {
     private final UserReader userReader;
     private final UserStore userStore;
@@ -17,7 +18,7 @@ public class UserServiceImpl implements UserService {
     public UserInfo signup(UserCommand command) {
         userReader.checkDuplicationLoginId(command.getLoginId());
 
-        String encrypted = PasswordEncoder.encode(command.getPassword());
+        EncryptedPassword encrypted = PasswordEncoder.encode(command.getPassword());
         User user = userStore.store(command.toEntity(encrypted));
         return new UserInfo(user);
     }

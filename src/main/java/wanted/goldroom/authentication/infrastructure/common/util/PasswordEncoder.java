@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import wanted.goldroom.authentication.domain.exception.ErrorCode;
 import wanted.goldroom.authentication.domain.exception.InternalServerException;
+import wanted.goldroom.authentication.domain.user.EncryptedPassword;
 
 @Slf4j
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -16,8 +17,12 @@ public class PasswordEncoder {
     private static final int SALT_LENGTH = 20;
     private static final String ALGORITHM = "SHA-256";
 
-    public static String encode(String plainText) {
-        return getEncrypt(plainText, getSalt());
+    public static EncryptedPassword encode(String plainText) {
+        String salt = getSalt();
+        return new EncryptedPassword(
+            getEncrypt(plainText, salt),
+            salt
+        );
     }
 
     private static String getSalt() {
