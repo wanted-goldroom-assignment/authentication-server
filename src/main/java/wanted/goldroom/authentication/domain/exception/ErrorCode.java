@@ -13,6 +13,8 @@ public enum ErrorCode {
 
     // USER
     ALREADY_EXIST_ID("이미 존재하는 아이디입니다."),
+    NOT_FOUND_USER("회원을 찾을 수 없습니다."),
+    MISMATCHED_PASSWORD("비밀번호가 일치하지 않습니다."),
 
     // PASSWORD
     PASSWORD_ENCRYPTION_FAIL("비밀번호 암호화에 실패했습니다.");

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import wanted.goldroom.authentication.domain.exception.BadRequestException;
 import wanted.goldroom.authentication.domain.exception.ErrorResponse;
 import wanted.goldroom.authentication.domain.exception.InternalServerException;
+import wanted.goldroom.authentication.domain.exception.NotFoundException;
 import wanted.goldroom.authentication.domain.exception.UnAuthorizedException;
 
 @RestControllerAdvice
@@ -40,6 +41,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleUnAuthorizedException(UnAuthorizedException e) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
             .body(new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), e.getErrorCode().getMessage()));
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), e.getErrorCode().getMessage()));
     }
 
     @ExceptionHandler(value = {Exception.class, InternalServerException.class})
