@@ -11,10 +11,11 @@ public class UserCommand {
     private final String loginId;
     private final String password;
 
-    public User toEntity(String password) {
+    public User toEntity(EncryptedPassword encrypted) {
         return User.builder()
             .loginId(loginId)
-            .password(password)
+            .password(encrypted.encoded())
+            .salt(encrypted.salt())
             .build();
     }
 }

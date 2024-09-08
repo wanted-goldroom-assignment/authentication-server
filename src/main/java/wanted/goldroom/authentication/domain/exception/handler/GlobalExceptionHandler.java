@@ -9,11 +9,14 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import lombok.extern.slf4j.Slf4j;
 import wanted.goldroom.authentication.domain.exception.BadRequestException;
 import wanted.goldroom.authentication.domain.exception.ErrorResponse;
 import wanted.goldroom.authentication.domain.exception.InternalServerException;
+import wanted.goldroom.authentication.domain.exception.NotFoundException;
 import wanted.goldroom.authentication.domain.exception.UnAuthorizedException;
 
+@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -42,8 +45,18 @@ public class GlobalExceptionHandler {
             .body(new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), e.getErrorCode().getMessage()));
     }
 
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleNotFoundException(NotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+            .body(new ErrorResponse(HttpStatus.NOT_FOUND.value(), e.getErrorCode().getMessage()));
+    }
+
     @ExceptionHandler(value = {Exception.class, InternalServerException.class})
     public ResponseEntity<ErrorResponse> handleUnExpectedException(Exception e) {
+        log.error("""
+            | INTERNAL_SERVER_ERROR!
+            | Error : {} | {}
+            """, e, e.getMessage());
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
             .body(new ErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), "예상치 못한 문제가 발생했습니다. 다시 시도해주세요"));
     }

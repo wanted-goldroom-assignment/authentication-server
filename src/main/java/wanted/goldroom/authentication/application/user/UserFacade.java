@@ -15,4 +15,8 @@ public class UserFacade {
     public UserInfo signup(UserCommand command) {
         return userService.signup(command);
     }
+
+    public UserInfo login(UserCommand command) {
+        return userService.login(command);
+    }
 }
