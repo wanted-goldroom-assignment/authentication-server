@@ -4,6 +4,7 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
 
+import wanted.goldroom.authentication.domain.token.TokenInfo;
 import wanted.goldroom.authentication.domain.user.UserCommand;
 import wanted.goldroom.authentication.domain.user.UserInfo;
 
@@ -16,4 +17,8 @@ public interface UserDtoMapper {
     UserCommand of(UserDto.SignupRequest request);
 
     UserDto.SignupResponse of(UserInfo userInfo);
+
+    UserCommand of(UserDto.LoginRequest request);
+
+    UserDto.LoginResponse of(TokenInfo tokenInfo);
 }
