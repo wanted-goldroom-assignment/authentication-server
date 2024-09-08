@@ -19,7 +19,7 @@ public record UserController(
     UserDtoMapper mapper
 ) {
 
-    @PostMapping("/signup")
+    @PostMapping("/auth/signup")
     public ResponseEntity<UserDto.SignupResponse> signup(@RequestBody @Valid UserDto.SignupRequest request) {
         UserCommand command = mapper.of(request);
         UserInfo userInfo = userFacade.signup(command);
