@@ -25,6 +25,10 @@ public class PasswordEncoder {
         );
     }
 
+    public static String encodeWithSalt(String plainText, String salt) {
+        return getEncrypt(plainText, salt);
+    }
+
     private static String getSalt() {
         SecureRandom secureRandom = new SecureRandom();
         byte[] salt = new byte[SALT_LENGTH];
