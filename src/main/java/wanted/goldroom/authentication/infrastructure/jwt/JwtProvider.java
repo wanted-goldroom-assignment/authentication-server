@@ -21,10 +21,12 @@ import wanted.goldroom.authentication.infrastructure.common.properties.JwtProper
 public class JwtProvider {
     private final SecretKey secretKey;
     private final long accessTokenExpirationTime;
+    private final long refreshTokenExpirationTime;
 
     public JwtProvider(JwtProperties jwtProperties) {
         this.secretKey = Keys.hmacShaKeyFor(jwtProperties.secretKey().getBytes(StandardCharsets.UTF_8));
         this.accessTokenExpirationTime = jwtProperties.accessTokenExpirationTime();
+        this.refreshTokenExpirationTime = jwtProperties.refreshTokenExpirationTime();
     }
 
     public String createAccessToken(String userToken) {
@@ -35,7 +37,19 @@ public class JwtProvider {
             .signWith(secretKey, SignatureAlgorithm.HS256)
             .setIssuedAt(now)
             .setExpiration(accessTokenExpiration)
-            .setClaims(Map.of("userToken", userToken))
+            .addClaims(Map.of("userToken", userToken))
+            .compact();
+    }
+
+    public String createRefreshToken(String userToken) {
+        Date now = new Date();
+        Date refreshTokenExpiration = new Date((now.getTime() + refreshTokenExpirationTime));
+
+        return Jwts.builder()
+            .signWith(secretKey, SignatureAlgorithm.HS256)
+            .setIssuedAt(now)
+            .setExpiration(refreshTokenExpiration)
+            .addClaims(Map.of("userToken", userToken))
             .compact();
     }
 

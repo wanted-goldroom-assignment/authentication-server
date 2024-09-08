@@ -33,4 +33,8 @@ public class User {
         this.password = password;
         this.salt = salt;
     }
+
+    public boolean validatePassword(String password) {
+        return this.password.equals(password);
+    }
 }
